@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>❤️ Para Você</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;600&display=swap" rel="stylesheet">
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Poppins',sans-serif;
+-webkit-tap-highlight-color:transparent;
+}
+
+body{
+height:100vh;
+display:flex;
+justify-content:center;
+align-items:center;
+background:linear-gradient(160deg,#ff4d6d,#ff8fa3);
+overflow:hidden;
+}
+
+/* TELA */
+.container{
+text-align:center;
+color:white;
+}
+
+/* ENVELOPE MODERNO */
+.envelope{
+width:140px;
+height:100px;
+background:white;
+margin:auto;
+border-radius:12px;
+position:relative;
+cursor:pointer;
+box-shadow:0 15px 30px rgba(0,0,0,.25);
+transition:.4s;
+}
+
+.envelope:active{
+transform:scale(.9);
+}
+
+/* TAMPA */
+.envelope::before{
+content:"";
+position:absolute;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:#ffd6dc;
+clip-path:polygon(0 0,50% 60%,100% 0);
+border-radius:12px 12px 0 0;
+}
+
+/* TEXTO */
+.tap{
+margin-top:20px;
+font-size:14px;
+opacity:.9;
+}
+
+/* CARTA */
+.card{
+position:fixed;
+bottom:-100%;
+left:0;
+width:100%;
+height:100%;
+background:white;
+border-radius:30px 30px 0 0;
+padding:25px;
+text-align:center;
+transition:.7s ease;
+overflow-y:auto;
+}
+
+.card.show{
+bottom:0;
+}
+
+h1{
+color:#ff4d6d;
+margin-bottom:15px;
+}
+
+.message{
+color:#444;
+line-height:1.6;
+font-size:16px;
+white-space:pre-line;
+margin-bottom:20px;
+}
+
+.card img{
+width:180px;
+height:180px;
+border-radius:50%;
+object-fit:cover;
+border:5px solid #ff4d6d;
+}
+
+/* CORAÇÕES */
+.heart{
+position:fixed;
+font-size:18px;
+animation:fall linear forwards;
+pointer-events:none;
+}
+
+@keyframes fall{
+from{transform:translateY(-10vh);opacity:1;}
+to{transform:translateY(110vh);opacity:0;}
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<div class="envelope" id="openLetter"></div>
+<div class="tap">Toque na cartinha 💌</div>
+
+</div>
+
+<!-- CARTA -->
+<div class="card" id="card">
+
+<h1>Feliz Aniversário ❤️</h1>
+
+<p class="message" id="text"></p>
+
+<img src="foto.jpg" alt="amor">
+
+</div>
+
+<script>
+
+const btn=document.getElementById("openLetter");
+const card=document.getElementById("card");
+
+const mensagem=`Feliz aniversário, meu amor!
+
+Hoje é o dia mais especial do ano,
+porque foi o dia em que nasceu
+a pessoa que transformou minha vida.
+
+Seu sorriso ilumina meus dias,
+seu abraço é meu lugar favorito
+e seu amor é tudo para mim.
+
+Que nossa história continue linda,
+cheia de sonhos e momentos inesquecíveis.
+
+Eu te amo para sempre ❤️`;
+
+let i=0;
+
+function escrever(){
+if(i<mensagem.length){
+document.getElementById("text").innerHTML+=mensagem.charAt(i);
+i++;
+setTimeout(escrever,28);
+}
+}
+
+function abrir(){
+card.classList.add("show");
+escrever();
+criarCoracoes();
+}
+
+/* EVENTO MOBILE REAL */
+btn.addEventListener("pointerdown", abrir);
+
+/* CORAÇÕES */
+function criarCoracoes(){
+setInterval(()=>{
+const heart=document.createElement("div");
+heart.className="heart";
+heart.innerHTML="❤️";
+
+heart.style.left=Math.random()*100+"vw";
+heart.style.animationDuration=(4+Math.random()*3)+"s";
+
+document.body.appendChild(heart);
+
+setTimeout(()=>heart.remove(),7000);
+
+},400);
+}
+
+</script>
+
+</body>
+</html>
